@@ -1,0 +1,72 @@
+{
+  "name": "@nulz-rip/mail",
+  "version": "0.1.0",
+  "description": "Official JavaScript/TypeScript SDK for Nulz Mail. Create inboxes, receive emails, and poll messages programmatically.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "license": "MIT",
+  "author": {
+    "name": "Andrew P. Harper",
+    "url": "https://github.com/KoopaCode"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nulz-rip/nulz-mail-sdk"
+  },
+  "homepage": "https://nulz.rip",
+  "bugs": {
+    "url": "https://github.com/nulz-rip/nulz-mail-sdk/issues"
+  },
+  "keywords": [
+    "nulz",
+    "nulz-mail",
+    "email",
+    "mail",
+    "temporary-email",
+    "temp-mail",
+    "email-api",
+    "mail-api",
+    "inbox",
+    "receive-email",
+    "email-testing",
+    "automation",
+    "sdk",
+    "api-client",
+    "typescript",
+    "javascript",
+    "nodejs",
+    "esm"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "tsup src/index.ts --watch",
+    "test": "vitest run",
+    "test:unit": "vitest run --exclude '**/integration/**'",
+    "test:integration": "vitest run src/integration",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
+}
