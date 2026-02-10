@@ -58,7 +58,8 @@ await client.deleteInbox(inbox.id)
 
 - **createInbox(options?)** – Create an alias. Returns `id`, `address`. Options: `prefix`, `domain` (use a value from `domains()`).
 - **domains()** – List domains you can use for `createInbox({ domain })`.
-- **listInboxes()** – List your aliases.
+- **listInboxes(options?)** – List aliases with pagination. Returns `{ aliases, total }`. Options: `limit` (default 20, max 100), `offset`.
+- **getInbox(id)** – Get one alias by ID (id + address, active, etc.).
 - **deleteInbox(id)** – Cancel an alias.
 - **listMessages(aliasId, options?)** – List messages; `limit`, `offset`.
 - **getMessage(id, codeOnly?)** – Full message or code-only (e.g. OTP).

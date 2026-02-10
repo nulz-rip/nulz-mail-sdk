@@ -1,6 +1,6 @@
 {
   "name": "@nulz-rip/mail",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Official JavaScript/TypeScript SDK for Nulz Mail. Create inboxes, receive emails, and poll messages programmatically.",
   "type": "module",
   "main": "dist/index.js",

@@ -12,6 +12,7 @@ import type {
   ClaimCreditsResponse,
   CreateInboxOptions,
   ListMessagesOptions,
+  ListInboxesOptions,
 } from './types.js'
 
 export * from './types.js'
@@ -47,9 +48,22 @@ export class MailClient {
     return request<InboxCreated>(this.opts, 'POST', '/aliases', options ?? {})
   }
 
-  async listInboxes(): Promise<Inbox[]> {
-    const res = await request<{ aliases: Inbox[] }>(this.opts, 'GET', '/aliases')
-    return res?.aliases ?? []
+  async listInboxes(options?: ListInboxesOptions): Promise<{ aliases: Inbox[]; total: number }> {
+    const query: Record<string, number | undefined> = {}
+    if (options?.limit != null) query.limit = options.limit
+    if (options?.offset != null) query.offset = options.offset
+    const res = await request<{ aliases: Inbox[]; total: number }>(
+      this.opts,
+      'GET',
+      '/aliases',
+      undefined,
+      Object.keys(query).length ? query : undefined
+    )
+    return { aliases: res?.aliases ?? [], total: res?.total ?? 0 }
+  }
+
+  async getInbox(id: string): Promise<Inbox> {
+    return request<Inbox>(this.opts, 'GET', `/aliases/${encodeURIComponent(id)}`)
   }
 
   async deleteInbox(id: string): Promise<void> {

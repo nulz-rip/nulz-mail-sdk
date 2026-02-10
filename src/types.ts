@@ -43,6 +43,7 @@ export interface CodeOnlyResponse {
 export interface MeResponse {
   credits_balance: number
   api_key?: string
+  active_aliases_count?: number
   active_aliases: Array<{ id: string; address: string; active: boolean; created_at: string }>
   next_free_claim_at: string | null
   total_messages?: number
@@ -57,6 +58,12 @@ export interface DomainsResponse {
 
 export interface AliasesResponse {
   aliases: Inbox[]
+  total: number
+}
+
+export interface ListInboxesOptions {
+  limit?: number
+  offset?: number
 }
 
 export interface ListMessagesResponse {

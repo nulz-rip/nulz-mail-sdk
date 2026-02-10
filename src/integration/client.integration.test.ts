@@ -34,7 +34,7 @@ describe(
         const msg = e instanceof NulzAPIError ? e.message : (e as Error).message
         log('createInbox failed:', msg)
         if (msg.includes('max active aliases reached')) {
-          const list = await client.listInboxes()
+          const { aliases: list } = await client.listInboxes({ limit: 50 })
           const active = list.filter((a) => a.active)
           if (active.length > 0) {
             inboxId = active[0].id
@@ -63,7 +63,7 @@ describe(
 
     it.skipIf(() => !inboxId)('creates inbox and lists it', async () => {
       expect(inboxId).toBeTruthy()
-      const list = await client.listInboxes()
+      const { aliases: list } = await client.listInboxes({ limit: 50 })
       expect(list.some((a) => a.id === inboxId)).toBe(true)
       const inboxInList = list.find((a) => a.id === inboxId)
       log('inbox in list:', inboxId, 'address:', inboxInList?.address)
@@ -78,7 +78,7 @@ describe(
 
     it.skipIf(() => !inboxId || skipDelete)('deletes inbox', async () => {
       await client.deleteInbox(inboxId!)
-      const list = await client.listInboxes()
+      const { aliases: list } = await client.listInboxes({ limit: 100 })
       const found = list.find((a) => a.id === inboxId)
       expect(found?.active).toBe(false)
       log('deleted:', inboxId, 'active:', found?.active)
